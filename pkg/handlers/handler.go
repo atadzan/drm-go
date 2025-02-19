@@ -42,6 +42,7 @@ func (h *handler) CasServerHandler(w http.ResponseWriter, r *http.Request) {
 	keyURL := fmt.Sprintf("http://%s/user-key?name=%s&number=%s", r.Host, resource, number)
 	w.Header().Set("X-Key-Url", keyURL)
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", len(key)))
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(key))
 	return
@@ -68,6 +69,7 @@ func (h *handler) UserKeyHandler(w http.ResponseWriter, r *http.Request) {
 	// Set headers and return key
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", len(key)))
 	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
 	w.Write(key)
 }
